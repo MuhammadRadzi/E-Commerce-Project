@@ -138,6 +138,14 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 	</header>
 
 	<main class="container">
+		<?php
+		// Show checkout success message
+		if (isset($_GET['pesan'])) {
+			if ($_GET['pesan'] == "checkout_sukses") {
+				tampilkanPesan('sukses', '🎉 Checkout berhasil! Terima kasih atas pembelian Anda. Keranjang telah dikosongkan.');
+			}
+		}
+		?>
 		<header class="page-header">
 			<h2 class="page-title">Katalog Produk</h2>
 

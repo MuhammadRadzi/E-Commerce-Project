@@ -8,6 +8,7 @@ if (isset($_GET['hapus'])) {
 	$id_hapus = $_GET['hapus'];
 	unset($_SESSION['keranjang'][$id_hapus]);
 	header("location:keranjang.php");
+	exit;
 }
 
 // Proteksi: Harus login untuk akses keranjang
@@ -68,6 +69,14 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 	<div class="container">
 
 		<?php
+		// Show messages
+		if (isset($_GET['pesan'])) {
+			if ($_GET['pesan'] == "checkout_gagal") {
+				$error = isset($_GET['error']) ? $_GET['error'] : "Terjadi kesalahan saat checkout";
+				tampilkanPesan('gagal', htmlspecialchars($error));
+			}
+		}
+		
 		// Enhanced page header with breadcrumb and back button
 		$jumlah_item = count($_SESSION['keranjang'] ?? []);
 		page_header(
@@ -174,10 +183,9 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 
 	<script>
 		function checkout() {
-			if (confirm('Konfirmasi checkout dengan total <?php echo formatRupiah($total_belanja ?? 0); ?>?')) {
-				alert('Terima kasih! Pesanan Anda sedang diproses.');
-				// TODO: Implement actual checkout logic
-				// window.location.href = 'checkout.php';
+			if (confirm('Konfirmasi checkout dengan total <?php echo formatRupiah($total_belanja ?? 0); ?>?\n\nStok akan dikurangi dan keranjang akan dikosongkan.')) {
+				// Redirect to checkout page
+				window.location.href = 'checkout.php';
 			}
 		}
 	</script>
