@@ -2,13 +2,13 @@
 session_start();
 include 'koneksi.php';
 
-// Cek apakah user sudah login
+// === AUTHENTICATION CHECK ===
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("location:login.php?pesan=belum_login");
     exit;
 }
 
-// Validasi ID
+// === VALIDATE ID ===
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "<script>alert('Invalid request!'); window.location='index.php';</script>";
     exit;
@@ -16,54 +16,45 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = (int)$_GET['id'];
 
-// Prepared Statement - Ambil detail barang
+// === GET PRODUCT DATA ===
 $stmt = $conn->prepare("SELECT * FROM barang WHERE id_barang = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_assoc();
 
-// Jika barang tidak ditemukan atau stok habis
 if (!$data || $data['stok'] <= 0) {
     echo "<script>alert('Barang tidak tersedia!'); window.location='index.php';</script>";
     exit;
 }
 
-// Inisialisasi keranjang jika belum ada
+// === INITIALIZE CART ===
 if (!isset($_SESSION['keranjang'])) {
     $_SESSION['keranjang'] = [];
 }
 
-// ============================================
-// PROCESS FORM SUBMISSION (WITHOUT TRANSACTION)
-// ============================================
+// ============================================================
+// === FORM PROCESSING ===
+// ============================================================
 if (isset($_POST['proses_beli'])) {
     $jumlah_beli = (int)$_POST['jumlah'];
 
-    // Validasi input
-    if ($jumlah_beli <= 0) {
+    // Validate quantity
+    if ($jumlah_beli <= 0 || $jumlah_beli > $data['stok']) {
         echo "<script>alert('Jumlah tidak valid!'); window.location='beli.php?id=$id';</script>";
         exit;
     }
 
-    // Validasi stok
-    if ($jumlah_beli > $data['stok']) {
-        echo "<script>alert('Stok tidak mencukupi! Tersedia: " . $data['stok'] . " unit'); window.location='beli.php?id=$id';</script>";
-        exit;
-    }
-
-    // Update stok (simple, tanpa transaction)
+    // Update stock
     $stok_baru = $data['stok'] - $jumlah_beli;
     $stmt_update = $conn->prepare("UPDATE barang SET stok = ? WHERE id_barang = ?");
     $stmt_update->bind_param("ii", $stok_baru, $id);
     $stmt_update->execute();
 
-    // Cek apakah barang sudah ada di keranjang
+    // Add to cart (with accumulation)
     if (isset($_SESSION['keranjang'][$id])) {
-        // Jika sudah ada, tambahkan jumlahnya
         $_SESSION['keranjang'][$id]['jumlah'] += $jumlah_beli;
     } else {
-        // Jika belum ada, buat entry baru
         $_SESSION['keranjang'][$id] = [
             'nama' => $data['nama_barang'],
             'harga' => $data['harga'],
@@ -71,27 +62,23 @@ if (isset($_POST['proses_beli'])) {
         ];
     }
 
-    // Redirect dengan pesan sukses
+    // Redirect to cart
     header("location:keranjang.php?pesan=berhasil_beli");
     exit;
 }
+// === END OF FORM PROCESSING ===
 
-// Include navigation AFTER processing
+// === LOAD NAVIGATION (AFTER PROCESSING) ===
 include 'navigation.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
-    <meta name="keywords" content="komputer, laptop, hardware, e-commerce">
     <title>Beli <?php echo htmlspecialchars($data['nama_barang']); ?></title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <nav>
         <h1>E-Commerce Project</h1>
@@ -111,9 +98,7 @@ include 'navigation.php';
     </nav>
 
     <div class="container" style="max-width: 500px;">
-
         <?php
-        // Enhanced page header with breadcrumb and back button
         page_header(
             'Konfirmasi Pembelian',
             ['index.php' => 'Katalog'],
@@ -168,10 +153,7 @@ include 'navigation.php';
                 <div style="display: flex; gap: 1rem;">
                     <button type="button" onclick="history.back()" class="btn-buy" style="background: #64748b; flex: 1;">Batal</button>
                     <button type="submit" name="proses_beli" value="1" class="btn-buy" style="flex: 2;" id="submitBtn">
-                        <svg style="width: 1.25rem; height: 1.25rem; display: inline-block; vertical-align: middle; margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                        </svg>
-                        Masukkan ke Keranjang
+                        🛒 Masukkan ke Keranjang
                     </button>
                 </div>
             </form>
@@ -179,20 +161,17 @@ include 'navigation.php';
     </div>
 
     <script>
-        console.log('beli.php loaded');
-        
-        // Real-time calculation
         const jumlahInput = document.getElementById('jumlahInput');
         const hargaSatuan = <?php echo $data['harga']; ?>;
         const stokMax = <?php echo $data['stok']; ?>;
 
+        // Real-time calculation
         jumlahInput.addEventListener('input', function() {
             let jumlah = parseInt(this.value) || 1;
             
             if (jumlah > stokMax) {
                 jumlah = stokMax;
                 this.value = stokMax;
-                alert('Jumlah tidak boleh melebihi stok yang tersedia!');
             }
             
             if (jumlah < 1) {
@@ -201,40 +180,20 @@ include 'navigation.php';
             }
             
             const total = hargaSatuan * jumlah;
-            
             document.getElementById('displayJumlah').textContent = jumlah;
-            document.getElementById('displayTotal').textContent = formatRupiah(total);
+            document.getElementById('displayTotal').textContent = 'Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         });
-
-        function formatRupiah(angka) {
-            return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
 
         // Form submission
         document.getElementById('purchaseForm').addEventListener('submit', function(e) {
-            console.log('Form submit triggered!');
-            
-            const jumlah = parseInt(jumlahInput.value);
-            console.log('Quantity:', jumlah);
-            
-            if (jumlah < 1 || jumlah > stokMax) {
-                e.preventDefault();
-                alert('Jumlah tidak valid!');
-                return false;
-            }
+            console.log('✅ Form submitted!');
             
             const btn = document.getElementById('submitBtn');
-            btn.innerHTML = '<span style="display: inline-block; width: 16px; height: 16px; border: 2px solid white; border-top: 2px solid transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 0.5rem;"></span>Memproses...';
+            btn.innerHTML = '⏳ Memproses...';
             btn.disabled = true;
             
             return true;
         });
-        
-        // Add animation
-        const style = document.createElement('style');
-        style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
-        document.head.appendChild(style);
     </script>
 </body>
-
 </html>
