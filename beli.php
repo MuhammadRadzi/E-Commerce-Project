@@ -152,7 +152,7 @@ include 'navigation.php';
 
                 <div style="display: flex; gap: 1rem;">
                     <button type="button" onclick="history.back()" class="btn-buy" style="background: #64748b; flex: 1;">Batal</button>
-                    <button type="submit" name="proses_beli" value="1" class="btn-buy" style="flex: 2;" id="submitBtn">
+                    <button type="submit" name="proses_beli" value="1" class="btn-buy" style="flex: 2;">
                         🛒 Masukkan ke Keranjang
                     </button>
                 </div>
@@ -183,17 +183,7 @@ include 'navigation.php';
             document.getElementById('displayJumlah').textContent = jumlah;
             document.getElementById('displayTotal').textContent = 'Rp ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         });
-
-        // Form submission
-        document.getElementById('purchaseForm').addEventListener('submit', function(e) {
-            console.log('✅ Form submitted!');
-            
-            const btn = document.getElementById('submitBtn');
-            btn.innerHTML = '⏳ Memproses...';
-            btn.disabled = true;
-            
-            return true;
-        });
+        
     </script>
 </body>
 </html>

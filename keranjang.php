@@ -61,7 +61,16 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 		<h1>E-Commerce Project</h1>
 		<ul>
 			<li><a href="index.php">Katalog</a></li>
-			<li><a href="keranjang.php">Keranjang</a></li>
+			<li>
+					<a href="keranjang.php" style="position: relative;">
+						Keranjang
+						<?php if (!empty($_SESSION['keranjang'])): ?>
+							<span style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -10px; right: -15px;">
+								<?php echo count($_SESSION['keranjang']); ?>
+							</span>
+						<?php endif; ?>
+					</a>
+				</li>
 			<li><a href="logout.php">Logout (<?php echo $_SESSION['username']; ?>)</a></li>
 		</ul>
 	</nav>

@@ -120,7 +120,7 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 				<li><a href="index.php">Katalog</a></li>
 				<li>
 					<a href="keranjang.php" style="position: relative;">
-						BELI
+						Keranjang
 						<?php if (!empty($_SESSION['keranjang'])): ?>
 							<span style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -10px; right: -15px;">
 								<?php echo count($_SESSION['keranjang']); ?>
