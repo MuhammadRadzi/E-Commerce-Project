@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'koneksi.php';
-include 'navigation.php'; // Include navigation component
+include 'config/database.php';
+include 'includes/navigation.php'; // Include navigation component
 
 // Hapus item jika ada request
 if (isset($_GET['hapus'])) {
@@ -27,7 +27,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 	<meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
 	<meta name="keywords" content="komputer, laptop, hardware, e-commerce">
 	<title>Keranjang Belanja - <?php echo count($_SESSION['keranjang'] ?? []); ?> Item</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 	<style>
 		.empty-cart {
 			text-align: center;

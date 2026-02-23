@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'koneksi.php';
+include 'config/database.php';
 
 // === AUTHENTICATION CHECK ===
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
@@ -69,7 +69,7 @@ if (isset($_POST['proses_beli'])) {
 // === END OF FORM PROCESSING ===
 
 // === LOAD NAVIGATION (AFTER PROCESSING) ===
-include 'navigation.php';
+include 'includes/navigation.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -77,7 +77,7 @@ include 'navigation.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beli <?php echo htmlspecialchars($data['nama_barang']); ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <nav>
@@ -109,7 +109,7 @@ include 'navigation.php';
         <div class="card" style="padding: 2rem;">
             <div style="margin-bottom: 1.5rem;">
                 <?php if ($data['gambar'] != 'no-image.jpg' && !empty($data['gambar'])): ?>
-                    <img src="img/<?php echo htmlspecialchars($data['gambar']); ?>"
+                    <img src="assets/img/products/<?php echo htmlspecialchars($data['gambar']); ?>"
                         alt="<?php echo htmlspecialchars($data['nama_barang']); ?>"
                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
                 <?php endif; ?>

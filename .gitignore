@@ -1,8 +1,27 @@
-img/
+# Images
+assets/img/products/*
+!assets/img/products/.gitkeep
+
+# Test files
 tests/
-beli_old.php
-test_session.php
-test.php
-test2.php
-beli_DEBUG.php
-test_nuclear.php
+test_*.php
+*_DEBUG.php
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+
+# Environment
+.env
+config.local.php
+
+# Backup
+backup_*/

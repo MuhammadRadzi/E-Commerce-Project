@@ -1,0 +1,16 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "\.(env|ini|log|sh|bat)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

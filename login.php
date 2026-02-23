@@ -7,7 +7,7 @@
 	<meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
 	<meta name="keywords" content="komputer, laptop, hardware, e-commerce">
 	<title>Login - E-Commerce</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 	<style>
 		/* CSS Khusus Login agar di tengah layar */
 		body {
@@ -94,7 +94,7 @@
 		}
 		?>
 
-		<form action="cek_login.php" method="post">
+		<form action="auth/login_process.php" method="post">
 			<div class="form-group">
 				<label>Username</label>
 				<input type="text" name="username" required placeholder="Masukkan username">

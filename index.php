@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'functions.php';
+include 'includes/functions.php';
 
 // --- LOGIKA PENCARIAN & PAGINATION ---
 $jumlahDataPerHalaman = 6;
@@ -29,7 +29,7 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 	<meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
 	<meta name="keywords" content="komputer, laptop, hardware, e-commerce">
 	<title>Katalog Toko Komputer</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 	<style>
 		/* Loading Overlay */
 		.loading-overlay {
@@ -176,7 +176,7 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 				if ($gambar == 'no-image.jpg' || empty($gambar)) {
 					$imgSrc = "https://placehold.co/300x200?text=" . urlencode($row['nama_barang']);
 				} else {
-					$imgSrc = "img/" . htmlspecialchars($gambar);
+					$imgSrc = "assets/img/products/" . htmlspecialchars($gambar);
 				}
 				?>
 
