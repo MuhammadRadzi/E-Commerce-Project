@@ -138,7 +138,7 @@ $query = mysqli_query($conn, "SELECT * FROM barang");
 			<h1>Admin Dashboard</h1>
 			<ul>
 				<li>Halo, <b><?php echo $_SESSION['username']; ?></b></li>
-				<li><a href="index.php" target="_blank">Lihat Website</a></li>
+				<li><a href="../index.php" target="_blank">Lihat Website</a></li>
 				<li><a href="logout.php" style="color: #ffcccc;">Logout</a></li>
 			</ul>
 		</nav>

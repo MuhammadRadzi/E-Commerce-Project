@@ -71,7 +71,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 						<?php endif; ?>
 					</a>
 				</li>
-			<li><a href="logout.php">Logout (<?php echo $_SESSION['username']; ?>)</a></li>
+			<li><a href="auth/logout.php">Logout (<?php echo $_SESSION['username']; ?>)</a></li>
 		</ul>
 	</nav>
 
@@ -194,7 +194,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 		function checkout() {
 			if (confirm('Konfirmasi checkout dengan total <?php echo formatRupiah($total_belanja ?? 0); ?>?\n\nStok akan dikurangi dan keranjang akan dikosongkan.')) {
 				// Redirect to checkout page
-				window.location.href = 'checkout.php';
+				window.location.href = 'public/checkout.php';
 			}
 		}
 	</script>

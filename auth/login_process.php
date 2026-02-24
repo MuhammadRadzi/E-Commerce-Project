@@ -29,17 +29,17 @@ if ($result->num_rows > 0) {
 		// Cek Role (Admin dan User)
 		if ($data['role'] == "admin") {
 			// Jika Admin, ke dashboard admin
-			header("location:admin.php");
+			header("location:../admin/index.php");
 		} else {
 			// Jika User biasa, ke halaman katalog biasa
-			header("location:index.php");
+			header("location:../index.php");
 		}
 	} else {
 		// Password salah
-		header("location:login.php?pesan=gagal");
+		header("location:../login.php?pesan=gagal");
 	}
 } else {
 	// Username tidak ditemukan
-	header("location:login.php?pesan=gagal");
+	header("location:../login.php?pesan=gagal");
 }
 ?>
