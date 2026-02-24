@@ -3,7 +3,7 @@ include '../../config/database.php';
 
 // Validasi ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header("location:admin.php?pesan=error_db");
+    header("location:../index.php?pesan=error_db");
     exit;
 }
 
@@ -28,13 +28,13 @@ if ($result->num_rows > 0) {
     $stmt_delete->bind_param("i", $id);
     
     if ($stmt_delete->execute()) {
-        header("location:admin.php?pesan=hapus_sukses");
+        header("location:../index.php?pesan=hapus_sukses");
     } else {
-        header("location:admin.php?pesan=error_db");
+        header("location:../index.php?pesan=error_db");
     }
 } else {
     // Data tidak ditemukan
-    header("location:admin.php?pesan=error_db");
+    header("location:../index.php?pesan=error_db");
 }
 
 exit;

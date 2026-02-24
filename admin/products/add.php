@@ -15,7 +15,7 @@ if ($_SESSION['role'] != "admin") {
     <meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
     <meta name="keywords" content="komputer, laptop, hardware, e-commerce">
     <title>Tambah Barang - Admin</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 
 <body>
@@ -35,8 +35,8 @@ if ($_SESSION['role'] != "admin") {
     <nav>
         <h1>Admin Panel</h1>
         <ul>
-            <li><a href="admin.php">Dashboard</a></li>
-            <li><a href="logout.php" style="color: #ffcccc;">Logout</a></li>
+            <li><a href="../index.php">Dashboard</a></li>
+            <li><a href="../../auth/logout.php" style="color: #ffcccc;">Logout</a></li>
         </ul>
     </nav>
 
@@ -46,14 +46,14 @@ if ($_SESSION['role'] != "admin") {
         // Enhanced page header with breadcrumb and back button
         page_header(
             'Tambah Barang Baru',
-            ['admin.php' => 'Dashboard'],
+            ['../index.php' => 'Dashboard'],
             true,
-            'admin.php'
+            '../index.php'
         );
         ?>
 
         <div class="card" style="padding: 2rem;">
-            <form action="../process/product_add.php" method="post" enctype="multipart/form-data" id="addProductForm">
+            <form action="../../process/product_add.php" method="post" enctype="multipart/form-data" id="addProductForm">
                 <div style="margin-bottom: 1rem;">
                     <label>Nama Barang <span style="color: red;">*</span></label>
                     <input type="text" name="nama_barang" required style="width: 100%; padding: 0.5rem"

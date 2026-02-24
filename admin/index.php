@@ -22,7 +22,7 @@ $query = mysqli_query($conn, "SELECT * FROM barang");
 	<meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
 	<meta name="keywords" content="komputer, laptop, hardware, e-commerce">
 	<title>Halaman Admin</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 	<style>
 		/* Tambahan CSS Tabel untuk Admin */
 		body {
@@ -161,7 +161,7 @@ $query = mysqli_query($conn, "SELECT * FROM barang");
 		<section>
 			<div class="header-admin">
 				<h2>Data Barang Inventaris</h2>
-				<a href="tambah.php" class="btn-buy" style="width: auto; background: #10b981;">+ Tambah Barang</a>
+				<a href="products/add.php" class="btn-buy" style="width: auto; background: #10b981;">+ Tambah Barang</a>
 			</div>
 
 			<div class="table-responsive">
@@ -196,9 +196,9 @@ $query = mysqli_query($conn, "SELECT * FROM barang");
 								<td><?php echo formatRupiah($d['harga']); ?></td>
 								<td><?php echo $d['kondisi']; ?></td>
 								<td>
-									<a href="edit.php?id=<?php echo $d['id_barang']; ?>" class="action-btn" style="background: #f59e0b; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none;">Edit</a>
+									<a href="products/edit.php?id=<?php echo $d['id_barang']; ?>" class="action-btn" style="background: #f59e0b; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none;">Edit</a>
 
-									<a href="hapus.php?id=<?php echo $d['id_barang']; ?>" class="action-btn delete-btn" style="background: #ef4444; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none;" data-nama="<?php echo htmlspecialchars($d['nama_barang']); ?>">Hapus</a>
+									<a href="products/delete.php?id=<?php echo $d['id_barang']; ?>" class="action-btn delete-btn" style="background: #ef4444; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none;" data-nama="<?php echo htmlspecialchars($d['nama_barang']); ?>">Hapus</a>
 								</td>
 							</tr>
 						<?php endwhile; ?>

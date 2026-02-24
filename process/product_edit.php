@@ -3,7 +3,7 @@ include '../config/database.php';
 
 // Validasi input
 if (!isset($_POST['id_barang']) || !is_numeric($_POST['id_barang'])) {
-    header("location:admin.php?pesan=error_db");
+    header("location:../admin/index.php?pesan=error_db");
     exit;
 }
 
@@ -26,17 +26,17 @@ if ($gambar != "") {
         // Hapus gambar lama jika ada
         $query_old = mysqli_query($conn, "SELECT gambar FROM barang WHERE id_barang='$id'");
         $old_data = mysqli_fetch_assoc($query_old);
-        if ($old_data['gambar'] != 'no-image.jpg' && file_exists("assets/img/products/" . $old_data['gambar'])) {
-            unlink("assets/img/products/" . $old_data['gambar']);
+        if ($old_data['gambar'] != 'no-image.jpg' && file_exists("../assets/img/products/" . $old_data['gambar'])) {
+            unlink("../assets/img/products/" . $old_data['gambar']);
         }
         
-        move_uploaded_file($file_tmp, 'assets/img/products/' . $nama_gambar_baru);
+        move_uploaded_file($file_tmp, '../assets/img/products/' . $nama_gambar_baru);
         
         // Update dengan gambar baru menggunakan prepared statement
         $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, stok=?, harga=?, gambar=? WHERE id_barang=?");
         $stmt->bind_param("siisi", $nama, $stok, $harga, $nama_gambar_baru, $id);
     } else {
-        header("location:admin.php?pesan=error_db");
+        header("location:../admin/index.php?pesan=error_db");
         exit;
     }
 } else {
@@ -46,9 +46,9 @@ if ($gambar != "") {
 }
 
 if ($stmt->execute()) {
-    header("location:admin.php?pesan=update_sukses");
+    header("location:../admin/index.php?pesan=update_sukses");
 } else {
-    header("location:admin.php?pesan=error_db");
+    header("location:../admin/index.php?pesan=error_db");
 }
 
 exit;

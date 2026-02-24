@@ -4,13 +4,13 @@ include '../config/database.php';
 
 // === AUTHENTICATION CHECK ===
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
-    header("location:login.php?pesan=belum_login");
+    header("location:../login.php?pesan=belum_login");
     exit;
 }
 
 // === CHECK IF CART IS EMPTY ===
 if (empty($_SESSION['keranjang'])) {
-    header("location:keranjang.php");
+    header("location:../keranjang.php");
     exit;
 }
 
@@ -52,7 +52,7 @@ try {
     $_SESSION['keranjang'] = [];
     
     // Redirect to index with success message
-    header("location:index.php?pesan=checkout_sukses");
+    header("location:../index.php?pesan=checkout_sukses");
     exit;
     
 } catch (Exception $e) {
@@ -60,7 +60,7 @@ try {
     mysqli_rollback($conn);
     
     // Redirect back to cart with error
-    header("location:keranjang.php?pesan=checkout_gagal&error=" . urlencode($e->getMessage()));
+    header("location:../keranjang.php?pesan=checkout_gagal&error=" . urlencode($e->getMessage()));
     exit;
 }
 ?>

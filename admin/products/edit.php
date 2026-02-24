@@ -10,7 +10,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "admin") {
 
 // Validasi ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-	header("location:admin.php?pesan=error_db");
+	header("location:../index.php?pesan=error_db");
 	exit;
 }
 
@@ -23,7 +23,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows == 0) {
-	header("location:admin.php?pesan=error_db");
+	header("location:../index.php?pesan=error_db");
 	exit;
 }
 
@@ -39,15 +39,15 @@ $d = $result->fetch_assoc();
 	<meta name="description" content="Toko Komputer Online - Sedia berbagai macam perangkat hardware berkualitas.">
 	<meta name="keywords" content="komputer, laptop, hardware, e-commerce">
 	<title>Edit Barang - <?php echo htmlspecialchars($d['nama_barang']); ?></title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 
 <body>
 	<nav>
 		<h1>Admin Panel</h1>
 		<ul>
-			<li><a href="admin.php">Dashboard</a></li>
-			<li><a href="logout.php" style="color: #ffcccc;">Logout</a></li>
+			<li><a href="../index.php">Dashboard</a></li>
+			<li><a href="../../auth/logout.php" style="color: #ffcccc;">Logout</a></li>
 		</ul>
 	</nav>
 
@@ -57,9 +57,9 @@ $d = $result->fetch_assoc();
 		// Enhanced page header with breadcrumb and back button
 		page_header(
 			'Edit Barang',
-			['admin.php' => 'Dashboard'],
+			['../index.php' => 'Dashboard'],
 			true,
-			'admin.php'
+			'../index.php'
 		);
 		?>
 
@@ -88,7 +88,7 @@ $d = $result->fetch_assoc();
 
 				<div style="margin-bottom: 1rem;">
 					<label>Foto Saat Ini:</label><br>
-					<img src="img/<?php echo htmlspecialchars($d['gambar']); ?>"
+					<img src="../../assets/img/products/<?php echo htmlspecialchars($d['gambar']); ?>"
 						alt="<?php echo htmlspecialchars($d['nama_barang']); ?>"
 						width="100" style="margin-bottom: 10px; border-radius: 5px;">
 					<br>
