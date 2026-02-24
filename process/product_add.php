@@ -54,7 +54,7 @@ if ($stmt->execute()) {
 	header("location:../admin/index.php?pesan=tambah_sukses");
 } else {
 	// Jika gagal dan sudah upload gambar, hapus gambar yang diupload
-	if ($nama_gambar_final != 'no-image.jpg' && file_exists("img/" . $nama_gambar_final)) {
+	if ($nama_gambar_final != 'no-image.jpg' && file_exists("../assets/img/products/" . $nama_gambar_final)) {
 		unlink("../assets/img/products/" . $nama_gambar_final);
 	}
 	header("location:../admin/index.php?pesan=error_db");
