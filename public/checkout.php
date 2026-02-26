@@ -25,8 +25,8 @@ try {
     foreach ($_SESSION['keranjang'] as $id => $item) {
         $jumlah = $item['jumlah'];
         
-        // Verify stock is still available
-        $stmt = $conn->prepare("SELECT stok FROM barang WHERE id_barang = ?");
+        // Verify stock is still available (with FOR UPDATE lock)
+        $stmt = $conn->prepare("SELECT stok FROM barang WHERE id_barang = ? FOR UPDATE");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -36,13 +36,19 @@ try {
             throw new Exception("Barang {$item['nama']} tidak ditemukan!");
         }
         
+        // VALIDASI STOK SEBELUM DIKURANGI
         if ($data['stok'] < $jumlah) {
             throw new Exception("Stok {$item['nama']} tidak mencukupi! Tersedia: {$data['stok']}, diminta: {$jumlah}");
         }
         
-        // Update stock (already reduced in beli.php, but double-check here)
-        // Actually, since stock was already reduced in beli.php, we skip this
-        // But in proper e-commerce, stock should be reserved during checkout
+        // KURANGI STOK DI SINI (SAAT CHECKOUT)
+        $stok_baru = $data['stok'] - $jumlah;
+        $stmt_update = $conn->prepare("UPDATE barang SET stok = ? WHERE id_barang = ?");
+        $stmt_update->bind_param("ii", $stok_baru, $id);
+        
+        if (!$stmt_update->execute()) {
+            throw new Exception("Gagal mengurangi stok untuk barang {$item['nama']}");
+        }
     }
     
     // Commit transaction

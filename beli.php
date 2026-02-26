@@ -45,14 +45,17 @@ if (isset($_POST['proses_beli'])) {
         exit;
     }
 
-    // Update stock
-    $stok_baru = $data['stok'] - $jumlah_beli;
-    $stmt_update = $conn->prepare("UPDATE barang SET stok = ? WHERE id_barang = ?");
-    $stmt_update->bind_param("ii", $stok_baru, $id);
-    $stmt_update->execute();
+    // PERUBAHAN UTAMA: TIDAK KURANGI STOK DI SINI!
+    // Stok akan dikurangi saat checkout, bukan saat add to cart
 
     // Add to cart (with accumulation)
     if (isset($_SESSION['keranjang'][$id])) {
+        // Cek apakah total quantity tidak melebihi stok
+        $total_quantity = $_SESSION['keranjang'][$id]['jumlah'] + $jumlah_beli;
+        if ($total_quantity > $data['stok']) {
+            echo "<script>alert('Total quantity di keranjang akan melebihi stok yang tersedia!'); window.location='beli.php?id=$id';</script>";
+            exit;
+        }
         $_SESSION['keranjang'][$id]['jumlah'] += $jumlah_beli;
     } else {
         $_SESSION['keranjang'][$id] = [
@@ -120,7 +123,7 @@ include 'includes/navigation.php';
                 </p>
 
                 <div style="display: inline-block; padding: 0.375rem 0.75rem; background: #d1fae5; color: #065f46; border-radius: 4px; font-size: 0.875rem; font-weight: 500; margin-top: 0.5rem;">
-                    📦 Tersedia: <?php echo $data['stok']; ?> unit
+                    Tersedia: <?php echo $data['stok']; ?> unit
                 </div>
             </div>
 
@@ -153,7 +156,7 @@ include 'includes/navigation.php';
                 <div style="display: flex; gap: 1rem;">
                     <button type="button" onclick="history.back()" class="btn-buy" style="background: #64748b; flex: 1;">Batal</button>
                     <button type="submit" name="proses_beli" value="1" class="btn-buy" style="flex: 2;">
-                        🛒 Masukkan ke Keranjang
+                        Masukkan ke Keranjang
                     </button>
                 </div>
             </form>
