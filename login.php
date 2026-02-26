@@ -105,7 +105,7 @@
 			</div>
 			<button type="submit" class="btn-submit">Masuk</button>
 			<p style="margin-top: 1rem; text-align: center;">
-				<a href="index.php" style="text-decoration: none; font-size: 0.9rem;">&larr; Kembali ke Katalog</a>
+				<a href="index.php" style="text-decoration: none; font-size: 0.9rem; color: var(--primary-color)">&larr; Kembali ke Katalog</a>
 			</p>
 		</form>
 	</div>
