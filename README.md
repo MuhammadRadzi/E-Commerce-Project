@@ -1,6 +1,7 @@
 # PROYEK E-COMMERCE - TOKO KOMPUTER
 
 Website e-commerce berbasis PHP untuk toko perangkat keras komputer yang dilengkapi dengan keranjang belanja, dashboard admin, dan manajemen inventaris.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6ad6f35c-8ea7-4ab3-9c47-35a811062653" />
 
 ## INFORMASI PROYEK
 
