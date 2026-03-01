@@ -115,7 +115,7 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 
 	<header>
 		<nav>
-			<h1>E-Commerce Project</h1>
+			<h1>LapakPC</h1>
 			<ul>
 				<li><a href="index.php">Katalog</a></li>
 				<li>
@@ -238,7 +238,7 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 	</div>
 
 	<footer style="text-align: center; padding: 2rem; background: #ddd; margin-top: 2rem;">
-		<p>&copy; 2026 Toko Komputer Project. All rights reserved.</p>
+		<p>&copy; 2026 LapakPC. All rights reserved.</p>
 	</footer>
 
 	<script>

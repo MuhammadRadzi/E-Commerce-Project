@@ -84,7 +84,7 @@ include 'includes/navigation.php';
 </head>
 <body>
     <nav>
-        <h1>E-Commerce Project</h1>
+        <h1>LapakPC</h1>
         <ul>
             <li><a href="index.php">Katalog</a></li>
             <li>
