@@ -243,9 +243,3 @@ checkSystemHealth(): Pemeriksaan kesehatan sistem
 Proyek ini bertujuan untuk pendidikan.
 
 ## DUKUNGAN
-
-For issues and questions:
-- Periksa dokumentasi terlebih dahulu
-- Tinjau bagian pemecahan masalah
-- Periksa log kesalahan PHP
-- Inspeksi konsol browser untuk kesalahan JS
