@@ -241,5 +241,3 @@ checkSystemHealth(): Pemeriksaan kesehatan sistem
 ## LISENSI
 
 Proyek ini bertujuan untuk pendidikan.
-
-## DUKUNGAN
