@@ -9,8 +9,11 @@ if (!isset($_POST['id_barang']) || !is_numeric($_POST['id_barang'])) {
 
 $id     = $_POST['id_barang'];
 $nama   = input($_POST['nama_barang']);
+$jenis  = input($_POST['jenis_barang']);
 $stok   = input($_POST['stok']);
 $harga  = input($_POST['harga']);
+$kondisi = input($_POST['kondisi']);
+$lokasi  = input($_POST['lokasi_rak']);
 
 $gambar = $_FILES['gambar']['name'];
 
@@ -33,16 +36,16 @@ if ($gambar != "") {
         move_uploaded_file($file_tmp, '../assets/img/products/' . $nama_gambar_baru);
         
         // Update dengan gambar baru menggunakan prepared statement
-        $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, stok=?, harga=?, gambar=? WHERE id_barang=?");
-        $stmt->bind_param("sissi", $nama, $stok, $harga, $nama_gambar_baru, $id);
+        $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, jenis_barang=?, stok=?, harga=?, kondisi=?, lokasi_rak=?, gambar=? WHERE id_barang=?");
+        $stmt->bind_param("ssissssi", $nama, $jenis, $stok, $harga, $kondisi, $lokasi, $nama_gambar_baru, $id);
     } else {
         header("location:../admin/index.php?pesan=error_db");
         exit;
     }
 } else {
     // Update tanpa mengubah gambar
-    $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, stok=?, harga=? WHERE id_barang=?");
-    $stmt->bind_param("sisi", $nama, $stok, $harga, $id);
+    $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, jenis_barang=?, stok=?, harga=?, kondisi=?, lokasi_rak=? WHERE id_barang=?");
+    $stmt->bind_param("ssisssi", $nama, $jenis, $stok, $harga, $kondisi, $lokasi, $id);
 }
 
 if ($stmt->execute()) {

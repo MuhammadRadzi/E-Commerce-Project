@@ -74,16 +74,39 @@ $d = $result->fetch_assoc();
 				</div>
 
 				<div style="margin-bottom: 1rem;">
-					<label>Stok</label>
-					<input type="number" name="stok" min="0" title="Stok tidak boleh negatif"
-						placeholder="Masukkan jumlah stok..." value="<?php echo $d['stok']; ?>"
-						required style="width: 100%; padding: 0.5rem;">
+					<label>Kategori (Jenis)</label>
+					<input type="text" name="jenis_barang" value="<?php echo htmlspecialchars($d['jenis_barang']); ?>"
+						required style="width: 100%; padding: 0.5rem;" placeholder="Contoh: Laptop, Hardware">
 				</div>
 
-				<div style="margin-bottom: 1rem;">
-					<label>Harga</label>
-					<input type="number" name="harga" value="<?php echo $d['harga']; ?>"
-						required style="width: 100%; padding: 0.5rem;">
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+					<div>
+						<label>Stok</label>
+						<input type="number" name="stok" min="0" title="Stok tidak boleh negatif"
+							value="<?php echo $d['stok']; ?>" required style="width: 100%; padding: 0.5rem;">
+					</div>
+					<div>
+						<label>Harga</label>
+						<input type="number" name="harga" value="<?php echo $d['harga']; ?>"
+							required style="width: 100%; padding: 0.5rem;">
+					</div>
+				</div>
+
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+					<div>
+						<label>Kondisi</label>
+						<select name="kondisi" required style="width: 100%; padding: 0.5rem;">
+							<option value="Baru" <?php echo ($d['kondisi'] == 'Baru') ? 'selected' : ''; ?>>Baru</option>
+							<option value="Bekas" <?php echo ($d['kondisi'] == 'Bekas') ? 'selected' : ''; ?>>Bekas</option>
+							<option value="Rusak" <?php echo ($d['kondisi'] == 'Rusak') ? 'selected' : ''; ?>>Rusak</option>
+						</select>
+					</div>
+					<div>
+						<label>Lokasi Rak</label>
+						<input type="text" name="lokasi_rak" value="<?php echo htmlspecialchars($d['lokasi_rak']); ?>"
+							pattern="[A-Z]-[0-9]{2}" title="Format: A-01, B-05, dll"
+							style="width: 100%; padding: 0.5rem;" placeholder="Contoh: A-01">
+					</div>
 				</div>
 
 				<div style="margin-bottom: 1rem;">
