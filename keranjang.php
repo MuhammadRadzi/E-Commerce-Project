@@ -62,16 +62,23 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 		<ul>
 			<li><a href="index.php">Katalog</a></li>
 			<li>
-					<a href="keranjang.php" style="position: relative;">
-						Keranjang
-						<?php if (!empty($_SESSION['keranjang'])): ?>
-							<span style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -10px; right: -15px;">
-								<?php echo count($_SESSION['keranjang']); ?>
-							</span>
-						<?php endif; ?>
-					</a>
-				</li>
-			<li><a href="auth/logout.php">Logout (<?php echo $_SESSION['username']; ?>)</a></li>
+				<a href="keranjang.php" style="position: relative;">
+					Keranjang
+					<?php if (!empty($_SESSION['keranjang'])): ?>
+						<span style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -10px; right: -15px;">
+							<?php echo count($_SESSION['keranjang']); ?>
+						</span>
+					<?php endif; ?>
+				</a>
+			</li>
+			<?php if (isset($_SESSION['status']) && $_SESSION['status'] == "login"): ?>
+				<?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin"): ?>
+					<li><a href="admin/index.php">Dashboard</a></li>
+				<?php endif; ?>
+				<li><a href="auth/logout.php" style="color: #ffcccc;">Logout (<?php echo $_SESSION['username']; ?>)</a></li>
+			<?php else: ?>
+				<li><a href="login.php">Login</a></li>
+			<?php endif; ?>
 		</ul>
 	</nav>
 
@@ -85,7 +92,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 				tampilkanPesan('gagal', htmlspecialchars($error));
 			}
 		}
-		
+
 		// Enhanced page header with breadcrumb and back button
 		$jumlah_item = count($_SESSION['keranjang'] ?? []);
 		page_header(
