@@ -129,6 +129,9 @@ $result = getBarang($awalData, $jumlahDataPerHalaman, $keyword);
 					</a>
 				</li>
 				<?php if (isset($_SESSION['status']) && $_SESSION['status'] == "login"): ?>
+					<?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin"): ?>
+						<li><a href="admin/index.php">Dashboard</a></li>
+					<?php endif; ?>
 					<li><a href="auth/logout.php">Logout (<?php echo $_SESSION['username']; ?>)</a></li>
 				<?php else: ?>
 					<li><a href="login.php">Login</a></li>
