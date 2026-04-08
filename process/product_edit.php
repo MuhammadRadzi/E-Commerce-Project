@@ -11,7 +11,7 @@ $id     = $_POST['id_barang'];
 $nama   = input($_POST['nama_barang']);
 $jenis  = input($_POST['jenis_barang']);
 $stok   = input($_POST['stok']);
-$harga  = input($_POST['harga']);
+$harga  = str_replace('.', '', input($_POST['harga']));
 $kondisi = input($_POST['kondisi']);
 $lokasi  = input($_POST['lokasi_rak']);
 

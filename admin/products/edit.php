@@ -87,8 +87,8 @@ $d = $result->fetch_assoc();
 					</div>
 					<div>
 						<label>Harga</label>
-						<input type="number" name="harga" value="<?php echo $d['harga']; ?>"
-							required style="width: 100%; padding: 0.5rem;">
+						<input type="text" name="harga" id="hargaInput" value="<?php echo number_format($d['harga'], 0, ',', '.'); ?>"
+							required style="width: 100%; padding: 0.5rem;" placeholder="Contoh: 1.500.000">
 					</div>
 				</div>
 
@@ -113,10 +113,15 @@ $d = $result->fetch_assoc();
 					<label>Foto Saat Ini:</label><br>
 					<img src="../../assets/img/products/<?php echo htmlspecialchars($d['gambar']); ?>"
 						alt="<?php echo htmlspecialchars($d['nama_barang']); ?>"
-						width="100" style="margin-bottom: 10px; border-radius: 5px;">
+						width="100" id="currentImage" style="margin-bottom: 10px; border-radius: 5px;">
 					<br>
 					<label>Ganti Foto (Kosongkan jika tidak ingin mengubah):</label>
-					<input type="file" name="gambar" accept="image/*" style="width: 100%;">
+					<input type="file" name="gambar" id="fileInput" accept="image/*" style="width: 100%;">
+					<div id="imagePreview" style="margin-top: 1rem; display: none;">
+						<p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px;">Preview Foto Baru:</p>
+						<img id="previewImg" style="max-width: 100%; height: 150px; object-fit: cover; border-radius: 8px; border: 2px solid var(--primary-color);">
+						<button type="button" onclick="clearImage()" style="display: block; margin-top: 5px; background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Batal Ganti Foto</button>
+					</div>
 				</div>
 
 				<div style="display: flex; gap: 1rem;">
@@ -133,6 +138,48 @@ $d = $result->fetch_assoc();
 		document.querySelector('form').addEventListener('change', function() {
 			formChanged = true;
 		});
+
+		// Format harga saat mengetik
+		const hargaInput = document.getElementById('hargaInput');
+		hargaInput.addEventListener('keyup', function(e) {
+			this.value = formatRupiah(this.value);
+		});
+
+		function formatRupiah(angka) {
+			let number_string = angka.replace(/[^0-9]/g, '').toString();
+			let sisa = number_string.length % 3;
+			let rupiah = number_string.substr(0, sisa);
+			let ribuan = number_string.substr(sisa).match(/\d{3}/gi);
+
+			if (ribuan) {
+				let separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+			return rupiah;
+		}
+
+		// Preview gambar saat memilih file
+		document.getElementById('fileInput').addEventListener('change', function(e) {
+			const file = e.target.files[0];
+			const previewContainer = document.getElementById('imagePreview');
+			const previewImg = document.getElementById('previewImg');
+
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					previewImg.src = e.target.result;
+					previewContainer.style.display = 'block';
+				}
+				reader.readAsDataURL(file);
+			} else {
+				previewContainer.style.display = 'none';
+			}
+		});
+
+		function clearImage() {
+			document.getElementById('fileInput').value = '';
+			document.getElementById('imagePreview').style.display = 'none';
+		}
 
 		window.addEventListener('beforeunload', function(e) {
 			if (formChanged) {
