@@ -34,7 +34,7 @@ if ($gambar != "") {
         
         // Update dengan gambar baru menggunakan prepared statement
         $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, stok=?, harga=?, gambar=? WHERE id_barang=?");
-        $stmt->bind_param("siisi", $nama, $stok, $harga, $nama_gambar_baru, $id);
+        $stmt->bind_param("sissi", $nama, $stok, $harga, $nama_gambar_baru, $id);
     } else {
         header("location:../admin/index.php?pesan=error_db");
         exit;
@@ -42,7 +42,7 @@ if ($gambar != "") {
 } else {
     // Update tanpa mengubah gambar
     $stmt = $conn->prepare("UPDATE barang SET nama_barang=?, stok=?, harga=? WHERE id_barang=?");
-    $stmt->bind_param("siii", $nama, $stok, $harga, $id);
+    $stmt->bind_param("sisi", $nama, $stok, $harga, $id);
 }
 
 if ($stmt->execute()) {

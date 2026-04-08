@@ -90,6 +90,8 @@
 				echo "<div class='alert' style='color: green;'>Anda telah berhasil logout.</div>";
 			} else if ($_GET['pesan'] == "belum_login") {
 				echo "<div class='alert'>Silakan login terlebih dahulu.</div>";
+			} else if ($_GET['pesan'] == "registrasi_sukses") {
+				echo "<div class='alert' style='color: green;'>Akun berhasil dibuat! Silakan login.</div>";
 			}
 		}
 		?>
@@ -104,6 +106,9 @@
 				<input type="password" name="password" required placeholder="Masukkan password">
 			</div>
 			<button type="submit" class="btn-submit">Masuk</button>
+			<p style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+				Belum punya akun? <a href="register.php" style="text-decoration: none; color: var(--primary-color); font-weight: bold;">Daftar Sekarang</a>
+			</p>
 			<p style="margin-top: 1rem; text-align: center;">
 				<a href="index.php" style="text-decoration: none; font-size: 0.9rem; color: var(--primary-color)">&larr; Kembali ke Katalog</a>
 			</p>

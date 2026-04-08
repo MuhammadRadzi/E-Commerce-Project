@@ -48,7 +48,7 @@ if ($gambar != "") {
 // Gunakan prepared statement untuk INSERT
 $stmt = $conn->prepare("INSERT INTO barang (nama_barang, jenis_barang, stok, harga, kondisi, lokasi_rak, gambar) 
                         VALUES (?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssiisss", $nama, $jenis, $stok, $harga, $kondisi, $lokasi_rak, $nama_gambar_final);
+$stmt->bind_param("ssissss", $nama, $jenis, $stok, $harga, $kondisi, $lokasi_rak, $nama_gambar_final);
 
 if ($stmt->execute()) {
 	header("location:../admin/index.php?pesan=tambah_sukses");
