@@ -194,22 +194,4 @@ Dalam semangat transparansi pengembangan, berikut adalah beberapa batasan yang d
 - **Fitur Lanjutan - Export Laporan Penjualan:** Menambahkan tombol ekspor laporan penjualan bulanan ke dalam format PDF (Dompdf) atau Excel (PhpSpreadsheet) untuk memudahkan admin.
 
 ---
-
-## 📋 Checklist Mandiri untuk Siswa (Sebelum Pengumpulan Final)
-
-Sebelum Anda mengumpulkan tautan repositori GitHub ke instruktur/penilai, centang checklist di bawah ini untuk memastikan tidak ada poin rubrik yang terlewatkan:
-
-- [ ] **README.md Berjalan Sempurna:** Dapat dijalankan ulang oleh penguji secara langsung dengan mengikuti instruksi tanpa harus bertanya/menebak alur.
-- [ ] **Keberadaan Bukti Screenshot:** Setiap fitur utama dalam rubrik penilaian telah memiliki penjelasan kontekstual beserta bukti screenshot asli yang diletakkan di bagian bukti.
-- [ ] **Bebas dari Data Kredensial Sensitif:** Tidak ada password asli database, token pribadi, credential, atau informasi personal rahasia di dalam seluruh file repositori maupun file README.md ini.
-- [ ] **Konsistensi Struktur & File:** Struktur folder rapi, penamaan berkas PHP menggunakan huruf kecil dipisah garis bawah (`snake_case`), dan penulisan variabel seragam.
-- [ ] **Fungsi CRUD Teruji 100%:**
-  - [ ] **Create:** Sukses menambahkan produk dengan tipe gambar valid (PNG/JPG).
-  - [ ] **Read:** Menampilkan data terstruktur dengan pagination dan pencarian berfungsi presisi.
-  - [ ] **Update:** Data terisi otomatis pada form edit (*pre-filled*), format rupiah rapi, dan update sukses.
-  - [ ] **Delete:** Tombol delete meminta konfirmasi dialog terlebih dahulu, dan menghapus gambar fisik di server.
-  - [ ] **Error Handling:** Pesan error terdefinisi jelas jika database down atau upload file gagal.
-- [ ] **Historis Git & Kerapian Commits:** Commit message ditulis secara bermakna (misal: `feat: add prepared statements to add product` bukan `update file index`) dan memiliki struktur historis Git yang profesional.
-
----
 *Proyek ini didesain dan dipelihara secara profesional untuk tujuan pendidikan.*
