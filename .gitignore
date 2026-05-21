@@ -3,7 +3,6 @@ assets/img/products/*
 !assets/img/products/.gitkeep
 
 # Test files
-tests/
 test_*.php
 *_DEBUG.php
 
