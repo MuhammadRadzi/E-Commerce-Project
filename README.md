@@ -108,7 +108,7 @@ Gunakan kredensial default berikut untuk login awal:
   - **Username:** `user`
   - **Password:** `user123`
 
-<img width="1920" height="1080" alt="Screenshot Halaman Login LapakPC" src="assets/img/ui/screenshot_validasi.png" />
+<img width="1920" height="1080" alt="Screenshot Halaman Login LapakPC" src="assets/img/ui/screenshot_login.png" />
 
 ---
 
