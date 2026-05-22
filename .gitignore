@@ -21,6 +21,7 @@ Thumbs.db
 # Environment
 .env
 config.local.php
+config/database.php
 
 # Backup
 backup_*/

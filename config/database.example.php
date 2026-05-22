@@ -1,8 +1,10 @@
 <?php
-// Konfigurasi Database
+// Konfigurasi Database - Template Example
+// Salin berkas ini menjadi database.php dan sesuaikan dengan kredensial database Anda.
+
 $host = "localhost";
-$user = "root";
-$pass = "";
+$user = "root";       // Ganti dengan username database Anda
+$pass = "";           // Ganti dengan password database Anda
 $db   = "db_ecommerce";
 
 // Membuat koneksi

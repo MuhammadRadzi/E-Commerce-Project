@@ -35,58 +35,32 @@ cd e-commerce-project
 
 ### 3. Setup & Migrasi Database
 1. Pastikan Apache dan MySQL di Laragon/XAMPP sudah berjalan.
-2. Buka phpMyAdmin di browser Anda (biasanya `http://localhost/phpmyadmin`).
-3. Buat database baru bernama `db_ecommerce` dengan mengeksekusi kueri berikut:
-   ```sql
-   CREATE DATABASE db_ecommerce;
-   ```
-4. Impor tabel dan data awal dengan menjalankan kueri SQL berikut di tab SQL phpMyAdmin Anda:
-   ```sql
-   CREATE TABLE barang (
-       id_barang INT PRIMARY KEY AUTO_INCREMENT,
-       nama_barang VARCHAR(255) NOT NULL,
-       jenis_barang VARCHAR(100) NOT NULL,
-       stok INT NOT NULL DEFAULT 0,
-       harga DECIMAL(10,2) NOT NULL,
-       kondisi ENUM('Baru', 'Bekas', 'Rusak') NOT NULL,
-       lokasi_rak VARCHAR(10) DEFAULT NULL,
-       gambar VARCHAR(255) DEFAULT 'no-image.jpg',
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+2. Impor berkas `database.sql` ke MySQL lokal Anda.
+   
+   **Melalui phpMyAdmin:**
+   - Buka phpMyAdmin di browser (biasanya `http://localhost/phpmyadmin`).
+   - Buat database baru bernama `db_ecommerce`.
+   - Klik database `db_ecommerce`, pilih tab **Import**, unggah berkas `database.sql`, lalu klik tombol **Go/Import**.
 
-   CREATE TABLE users (
-       id INT PRIMARY KEY AUTO_INCREMENT,
-       username VARCHAR(50) UNIQUE NOT NULL,
-       password VARCHAR(255) NOT NULL,
-       role ENUM('admin', 'user') DEFAULT 'user',
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-   -- Seeding data admin default (Password: admin123)
-   INSERT INTO users (username, password, role) VALUES 
-   ('admin', '$2y$12$fOgM7iVi75yGsxwaSMbti.HNbW/EiZ36Fvr3pZm.VGyCzNWZYwjgC', 'admin');
-
-   -- Seeding data user default (Password: user123)
-   INSERT INTO users (username, password, role) VALUES 
-   ('user', '$2y$12$VqWX7ncFtn44eCMCjiPE0OFZzBJ70W.H.BUdQe.7oC0BrwokKqz3.', 'user');
-
-   -- Seeding data barang awal
-   INSERT INTO barang (nama_barang, jenis_barang, stok, harga, kondisi, lokasi_rak, gambar) VALUES
-   ('Processor AMD Ryzen 5 5600X', 'Processor', 15, 2300000.00, 'Baru', 'A-01', 'no-image.jpg'),
-   ('Nvidia RTX 4060 Ti 8GB', 'VGA Card', 8, 6500000.00, 'Baru', 'A-02', 'no-image.jpg'),
-   ('RAM Corsair Vengeance LPX DDR4 16GB', 'RAM', 25, 650000.00, 'Baru', 'B-01', 'no-image.jpg'),
-   ('SSD Samsung 980 Pro NVMe 1TB', 'Storage', 12, 1450000.00, 'Baru', 'B-02', 'no-image.jpg'),
-   ('Power Supply Corsair RM750x Gold', 'Power Supply', 5, 1850000.00, 'Baru', 'C-01', 'no-image.jpg');
+   **Melalui Terminal / Command Line:**
+   ```bash
+   mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS db_ecommerce;"
+   mysql -u root -p db_ecommerce < database.sql
    ```
 
-### 4. Konfigurasi Environment Sesi database
-Buka file `config/database.php` dan sesuaikan dengan kredensial database lokal Anda (secara default di Laragon/XAMPP, gunakan username `root` dengan password dikosongkan):
+### 4. Konfigurasi Environment & Database
+Salin berkas template `config/database.example.php` menjadi `config/database.php`:
+```bash
+cp config/database.example.php config/database.php
+```
+Buka berkas `config/database.php` tersebut dan sesuaikan dengan kredensial database lokal Anda (secara default di Laragon/XAMPP, gunakan username `root` dengan password dikosongkan):
 ```php
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db   = "db_ecommerce";
 ```
+*(Catatan: Berkas `config/database.php` sudah diabaikan lewat `.gitignore` agar kredensial database lokal Anda tetap aman dan tidak terunggah ke Git).*
 
 ### 5. Jalankan Tes Otomatis (Unit Testing)
 Untuk memverifikasi koneksi database dan integritas fungsionalitas CRUD secara instan, buka tautan pengujian berikut di browser Anda:
