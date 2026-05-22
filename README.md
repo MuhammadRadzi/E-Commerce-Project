@@ -68,7 +68,7 @@ cd e-commerce-project
 
    -- Seeding data user default (Password: user123)
    INSERT INTO users (username, password, role) VALUES 
-   ('user', '$2y$12$Nq7qG7y5Yf8vN75JpB6vEexP4fL3F6fX/aX.U4fNfO4sK2bI7d7Yy', 'user');
+   ('user', '$2y$12$VqWX7ncFtn44eCMCjiPE0OFZzBJ70W.H.BUdQe.7oC0BrwokKqz3.', 'user');
 
    -- Seeding data barang awal
    INSERT INTO barang (nama_barang, jenis_barang, stok, harga, kondisi, lokasi_rak, gambar) VALUES
