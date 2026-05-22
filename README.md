@@ -29,8 +29,8 @@ Pastikan perangkat Anda telah terinstal:
 ### 2. Clone Repository
 Buka terminal atau command prompt, navigasikan ke direktori web server Anda (contoh: `www` untuk Laragon atau `htdocs` untuk XAMPP), lalu jalankan:
 ```bash
-git clone https://github.com/MuhammadRadzi/project-ecommerce.git project-ecommerce
-cd project-ecommerce
+git clone https://github.com/MuhammadRadzi/E-Commerce-Project.git e-commerce-project
+cd e-commerce-project
 ```
 
 ### 3. Setup & Migrasi Database
@@ -90,15 +90,15 @@ $db   = "db_ecommerce";
 
 ### 5. Jalankan Tes Otomatis (Unit Testing)
 Untuk memverifikasi koneksi database dan integritas fungsionalitas CRUD secara instan, buka tautan pengujian berikut di browser Anda:
-- Cek Koneksi & Pengambilan Data: `http://localhost/project-ecommerce/tests/test_koneksi.php`
-- Cek Alur CRUD Lengkap: `http://localhost/project-ecommerce/tests/CrudTest.php`
+- Cek Koneksi & Pengambilan Data: `http://localhost/e-commerce-project/tests/test_koneksi.php`
+- Cek Alur CRUD Lengkap: `http://localhost/e-commerce-project/tests/CrudTest.php`
 
 *(Jika unit testing sukses menampilkan status **[PASSED]**, sistem Anda siap digunakan!)*
 
 ### 6. Menjalankan Aplikasi
 Buka browser dan akses aplikasi melalui URL:
 ```
-http://localhost/project-ecommerce
+http://localhost/e-commerce-project
 ```
 Gunakan kredensial default berikut untuk login awal:
 - **Untuk Admin:**
@@ -136,7 +136,7 @@ Proyek ini tidak menggunakan framework MVC murni, melainkan menerapkan pola pemi
 
 **Struktur Direktori Singkat:**
 ```
-project-ecommerce/
+e-commerce-project/
 ├── admin/                     # Modul Admin
 │   ├── index.php              # Dashboard inventaris admin (Read)
 │   ├── products/
