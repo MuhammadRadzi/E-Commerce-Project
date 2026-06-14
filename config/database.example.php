@@ -16,13 +16,13 @@ if (!$conn) {
 }
 
 // Set fungsi format rupiah (Helper function agar rapi)
-function formatRupiah($angka)
+function formatRupiah(int|float $angka)
 {
     return "Rp " . number_format($angka, 0, ',', '.');
 }
 
 // Fungsi untuk membuat Breadcrumb sederhana
-function breadcrumb($judul_halaman)
+function breadcrumb(string$judul_halaman)
 {
     echo "
     <nav aria-label='breadcrumb' style='margin-bottom: 20px; font-size: 0.9rem;'>
@@ -35,7 +35,7 @@ function breadcrumb($judul_halaman)
 }
 
 // Fungsi untuk menampilkan pesan feedback
-function tampilkanPesan($jenis, $pesan)
+function tampilkanPesan(string $jenis, string $pesan)
 {
     $warna = ($jenis == 'sukses') ? '#10b981' : '#ef4444';
     echo "
@@ -45,7 +45,7 @@ function tampilkanPesan($jenis, $pesan)
 }
 
 // Fungsi untuk mencegah SQL Injection & XSS
-function input($data) {
+function input(string $data) {
     global $conn;
     $data = trim($data); // Hapus spasi di awal/akhir
     $data = stripslashes($data); // Hapus backslashes
